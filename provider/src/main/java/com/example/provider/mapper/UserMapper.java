@@ -9,4 +9,6 @@ import java.util.List;
 public interface UserMapper {
 
     List<UserModel> selectUserList();
+
+    UserModel findUser(String userName,String password);
 }

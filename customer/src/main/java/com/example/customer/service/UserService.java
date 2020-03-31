@@ -1,5 +1,7 @@
 package com.example.customer.service;
 
+import com.example.common.dto.LoginDto;
+import com.example.common.vo.Response;
 import com.example.customer.serviceImpl.UserServiceImpl;
 import com.example.customer.entity.UserModel;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -13,4 +15,7 @@ public interface UserService {
 
     @RequestMapping(value = "/user-center/list",method = RequestMethod.GET)
     List<UserModel> selectUserList();
+
+    @RequestMapping(value = "/api/login.json",method = RequestMethod.POST)
+    Response login(LoginDto loginDto);
 }

@@ -9,4 +9,13 @@
             user
     </select>
 
+    <select id="findUser" resultType="com.example.provider.entity.UserModel">
+        SELECT
+            *
+        FROM
+            user
+        WHERE
+            user_name = #{userName} AND password = #{password}
+    </select>
+
 </mapper>

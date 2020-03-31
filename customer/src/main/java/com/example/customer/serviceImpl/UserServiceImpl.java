@@ -1,5 +1,7 @@
 package com.example.customer.serviceImpl;
 
+import com.example.common.dto.LoginDto;
+import com.example.common.vo.Response;
 import com.example.customer.service.UserService;
 import com.example.customer.entity.UserModel;
 import feign.hystrix.FallbackFactory;
@@ -19,6 +21,12 @@ public class UserServiceImpl implements FallbackFactory<UserService> {
                 System.out.println("------------------------------");
                 throw new RuntimeException(cause.getMessage());
             }
+
+            @Override
+            public Response login(LoginDto loginDto) {
+                return new Response(cause.getMessage(),false,cause.getMessage());
+            }
         };
     }
+
 }
