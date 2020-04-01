@@ -1,6 +1,7 @@
 package com.example.customer.serviceImpl;
 
 import com.example.common.dto.LoginDto;
+import com.example.common.vo.LoginResponse;
 import com.example.common.vo.Response;
 import com.example.customer.service.UserService;
 import com.example.customer.entity.UserModel;
@@ -23,9 +24,15 @@ public class UserServiceImpl implements FallbackFactory<UserService> {
             }
 
             @Override
-            public Response login(LoginDto loginDto) {
-                return new Response(cause.getMessage(),false,cause.getMessage());
+            public LoginResponse<UserModel> login(LoginDto loginDto) {
+                throw new RuntimeException(cause.getMessage());
             }
+
+            @Override
+            public void importUser() {
+            }
+
+
         };
     }
 

@@ -3,21 +3,22 @@ package com.example.common.vo;
 import lombok.Data;
 
 @Data
-public class Response {
+public class Response<T> {
 
-    private String code;
+    private String code = "200";
 
-    private Boolean success;
+    private Boolean success = true;
 
-    private Object data;
+    private String message;
+
+    private T result;
 
     public Response(){
-        super();
     }
 
-    public Response(String code,Boolean success,Object data){
+    public void setCode(String code){
         this.code = code;
-        this.success = success;
-        this.data = data;
+        this.success = false;
     }
+
 }

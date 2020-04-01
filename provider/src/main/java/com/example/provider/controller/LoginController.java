@@ -2,6 +2,7 @@ package com.example.provider.controller;
 
 
 import com.example.common.dto.LoginDto;
+import com.example.common.vo.LoginResponse;
 import com.example.common.vo.Response;
 import com.example.provider.entity.UserModel;
 import com.example.provider.service.UserService;
@@ -26,22 +27,20 @@ public class LoginController {
     private UserService userService;
 
     @RequestMapping(value = "login.json",method = RequestMethod.POST)
-    public Response login(@RequestBody LoginDto loginDto){
-        UserModel user = userService.findUser(loginDto.getUserName(), loginDto.getPassword());
-        String jwtToken = jwtToken(user);
-        Response response = new Response();
-        response.setCode("200");
-        response.setSuccess(true);
-        response.setData(jwtToken);
-        return response;
+    public LoginResponse<UserModel> login(@RequestBody LoginDto loginDto){
+        LoginResponse<UserModel> user = userService.findUser(loginDto.getUserName(), loginDto.getPassword());
+        if(user.getSuccess() && user.getResult() != null){
+            String jwtToken = jwtToken((UserModel) user.getResult());
+            user.setToken(jwtToken);
+        }
+        return user;
     }
 
     private String jwtToken(UserModel userModel){
         Map<String,Object> claims = new HashMap<>();
         claims.put("userName",userModel.getUserName());
-        JwtBuilder builder = Jwts.builder();
-        builder.setClaims(claims).setExpiration(new Date(System.currentTimeMillis() + 3000*1000))
-                .setIssuedAt(new Date()).signWith(SignatureAlgorithm.ES256, "jwt");
-        return builder.compact();
+        return Jwts.builder()
+                .setClaims(claims).setExpiration(new Date(System.currentTimeMillis() + 3000 * 1000))
+                .setIssuedAt(new Date()).signWith(SignatureAlgorithm.HS256, "jwttest").compact();
     }
 }

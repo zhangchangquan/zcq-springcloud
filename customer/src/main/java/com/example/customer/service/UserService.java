@@ -1,6 +1,7 @@
 package com.example.customer.service;
 
 import com.example.common.dto.LoginDto;
+import com.example.common.vo.LoginResponse;
 import com.example.common.vo.Response;
 import com.example.customer.serviceImpl.UserServiceImpl;
 import com.example.customer.entity.UserModel;
@@ -17,5 +18,8 @@ public interface UserService {
     List<UserModel> selectUserList();
 
     @RequestMapping(value = "/api/login.json",method = RequestMethod.POST)
-    Response login(LoginDto loginDto);
+    LoginResponse<UserModel> login(LoginDto loginDto);
+
+    @RequestMapping(value = "/user-center/import",method = RequestMethod.GET)
+    void importUser();
 }

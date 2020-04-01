@@ -23,4 +23,12 @@ public class UserController {
         return users;
     }
 
+    /**
+     * user表导出excel
+     */
+    @RequestMapping(value = "import",method = RequestMethod.GET)
+    public void importUser(){
+        userService.importUser();
+    }
+
 }

@@ -1,5 +1,7 @@
 package com.example.provider.service;
 
+import com.example.common.vo.LoginResponse;
+import com.example.common.vo.Response;
 import com.example.provider.entity.UserModel;
 
 import java.util.List;
@@ -8,5 +10,7 @@ public interface UserService {
 
     List<UserModel> selectUserList();
 
-    UserModel findUser(String userName,String password);
+    LoginResponse<UserModel> findUser(String userName, String password);
+
+    void importUser();
 }
