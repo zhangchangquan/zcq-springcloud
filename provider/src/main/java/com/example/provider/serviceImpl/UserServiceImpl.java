@@ -3,21 +3,15 @@ package com.example.provider.serviceImpl;
 import com.example.common.exception.UserOrPasswordNotNullException;
 import com.example.common.util.Md5Util;
 import com.example.common.vo.LoginResponse;
-import com.example.common.vo.Response;
 import com.example.provider.entity.UserModel;
 import com.example.provider.mapper.UserMapper;
 import com.example.provider.service.UserService;
 import org.apache.commons.lang.StringUtils;
-import org.apache.poi.hssf.usermodel.*;
-import org.apache.poi.ss.usermodel.VerticalAlignment;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -25,6 +19,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private AmqpTemplate amqpTemplate;
 
     @Override
     public List<UserModel> selectUserList() {
@@ -53,7 +50,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void importUser() {
-        List<UserModel> users = userMapper.selectUserList();
+        String context = "hello" + new Date();
+        amqpTemplate.convertAndSend("hello", context);
+        //amqpTemplate.convertAndSend("myOrder", "computer", "now " + new Date());
+        /*List<UserModel> users = userMapper.selectUserList();
         HSSFWorkbook wb = new HSSFWorkbook();
         HSSFSheet sheet = wb.createSheet("用户信息");
         HSSFCellStyle cellStyle = wb.createCellStyle();
@@ -92,7 +92,7 @@ public class UserServiceImpl implements UserService {
             outputStream.flush();
         }catch (IOException e){
 
-        }
+        }*/
 
 
     }
