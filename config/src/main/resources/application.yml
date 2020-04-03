@@ -1,0 +1,13 @@
+server:
+  port: 12000
+
+spring:
+  application:
+    name: config
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/zhangchangquan/zcq-springcloud.git
+          username: zhangchangquan
+          password: 741852963zcq
