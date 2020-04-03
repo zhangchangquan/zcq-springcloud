@@ -11,7 +11,9 @@ spring:
       discovery:
         enabled: true
         #这个名字是Config Server端的服务名字，不能瞎写。
-        service-id: config
+        service-id: config-server
+      label: master
+      uri: http://localhost:12000
 #注册中心
 eureka:
   client:
