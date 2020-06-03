@@ -11,8 +11,7 @@ import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -50,8 +49,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void importUser() {
-        String context = "hello" + new Date();
-        amqpTemplate.convertAndSend("myOrder","fruit", context);
+        String orderNo = UUID.randomUUID().toString();
+        //2、将订单编号、用户ID保存到rabbitMQ中去
+        Map<String,Object> dataMap = new HashMap<>();
+        dataMap.put("orderNo",orderNo);
+        dataMap.put("userId",1);
+        dataMap.put("seckillId",1);
+        amqpTemplate.convertAndSend("queue-test",dataMap);
 
     }
 }

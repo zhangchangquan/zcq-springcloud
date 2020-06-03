@@ -42,8 +42,7 @@ public class FilterConfig implements GlobalFilter, Ordered {
             return writeWith(response,"用户未登录");
         }
         Claims claims = Jwts.parser().setSigningKey("jwttest").parseClaimsJws(token).getBody();
-        String userName = claims.get("userName").toString();
-        if(StringUtils.isBlank(userName)){
+        if(claims == null){
             return writeWith(response,"用户登录信息失效");
         }
         return chain.filter(exchange);

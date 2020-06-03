@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.provider.dao.UserInfoDao">
+
+
+    <select id="getByUserName" parameterType="string" resultType="com.example.common.entity.UserInfo">
+        SELECT
+            username AS username,
+            password AS password
+        FROM
+            t_users
+        WHERE
+            username = #{username}
+    </select>
+
+</mapper>

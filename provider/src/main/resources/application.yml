@@ -11,10 +11,19 @@ spring:
     username: root
     password: password
   rabbitmq:
-    host: 192.168.110.129
+    host: 192.168.110.135
     port: 5672
     username: admin
     password: admin
+    publisher-confirms: true
+    publisher-returns: true
+    listener:
+      simple:
+        acknowledge-mode: manual
+        concurrency: 1
+        max-concurrency: 1
+        retry:
+          enabled: true
 
 
 
@@ -28,6 +37,4 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true
-
-
 

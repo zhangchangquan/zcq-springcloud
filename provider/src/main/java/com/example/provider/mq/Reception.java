@@ -2,19 +2,22 @@ package com.example.provider.mq;
 
 import com.example.provider.entity.UserModel;
 import com.example.provider.mapper.UserMapper;
+import com.rabbitmq.client.Channel;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
-import org.springframework.amqp.rabbit.annotation.Exchange;
-import org.springframework.amqp.rabbit.annotation.Queue;
-import org.springframework.amqp.rabbit.annotation.QueueBinding;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.rabbit.annotation.*;
+import org.springframework.amqp.support.AmqpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.Headers;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class Reception {
@@ -72,10 +75,12 @@ public class Reception {
         }
     }
 
-    /**
+
+/**
      * 数码供应商服务 接收消息
      * @param message
      */
+
     @RabbitListener(bindings = @QueueBinding(
             exchange = @Exchange("myOrder"),
             key = "computer",
@@ -85,10 +90,12 @@ public class Reception {
         System.out.println("computer MqReceiver: " + message);
     }
 
-    /**
+
+/**
      * 水果供应商服务 接收消息
      * @param message
      */
+
     @RabbitListener(bindings = @QueueBinding(
             exchange = @Exchange("myOrder"),
             key = "fruit",
@@ -98,6 +105,12 @@ public class Reception {
         System.out.println("fruit MqReceiver: " + new Date());
     }
 
-}
+    @RabbitListener(queues = "queue-test")
+     public void process(Message message, Channel channel) throws IOException {
+        System.out.println(message);
+        // 采用手动应答模式, 手动确认应答更为安全稳定
+         channel.basicAck(message.getMessageProperties().getDeliveryTag(), true);
+      }
 
+}
 
