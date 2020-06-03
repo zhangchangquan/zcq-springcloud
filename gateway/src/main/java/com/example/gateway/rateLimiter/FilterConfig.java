@@ -35,6 +35,7 @@ public class FilterConfig implements GlobalFilter, Ordered {
         System.out.println("hello");
     }
 
+
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
