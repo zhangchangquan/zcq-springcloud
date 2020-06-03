@@ -36,6 +36,7 @@ public class FilterConfig implements GlobalFilter, Ordered {
         if(pathList.contains(path.toString())){
             return chain.filter(exchange);
         }
+
         String token = request.getHeaders().getFirst("token");
         ServerHttpResponse response = exchange.getResponse();
         if(StringUtils.isEmpty(token)){
