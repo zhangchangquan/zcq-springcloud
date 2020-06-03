@@ -31,6 +31,9 @@ public class FilterConfig implements GlobalFilter, Ordered {
 
     private String name;
 
+
+
+
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
@@ -38,6 +41,7 @@ public class FilterConfig implements GlobalFilter, Ordered {
         if(pathList.contains(path.toString())){
             return chain.filter(exchange);
         }
+        System.out.println("log");
         String token = request.getHeaders().getFirst("token");
         ServerHttpResponse response = exchange.getResponse();
         if(StringUtils.isEmpty(token)){
