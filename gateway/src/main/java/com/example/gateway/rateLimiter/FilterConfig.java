@@ -48,6 +48,7 @@ public class FilterConfig implements GlobalFilter, Ordered {
         if(claims == null){
             return writeWith(response,"用户登录信息失效");
         }
+        String ss = "11";
         return chain.filter(exchange);
     }
 
