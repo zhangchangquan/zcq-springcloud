@@ -31,6 +31,10 @@ public class FilterConfig implements GlobalFilter, Ordered {
 
     private String name;
 
+    public static void main(String[] args) {
+        System.out.println("hello");
+    }
+
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
