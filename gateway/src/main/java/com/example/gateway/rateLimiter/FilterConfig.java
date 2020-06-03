@@ -31,6 +31,9 @@ public class FilterConfig implements GlobalFilter, Ordered {
 
     private String name;
 
+
+
+
     public static void main(String[] args) {
         System.out.println("hello");
     }
@@ -43,6 +46,7 @@ public class FilterConfig implements GlobalFilter, Ordered {
         if(pathList.contains(path.toString())){
             return chain.filter(exchange);
         }
+        System.out.println("log");
         String token = request.getHeaders().getFirst("token");
         ServerHttpResponse response = exchange.getResponse();
         if(StringUtils.isEmpty(token)){
