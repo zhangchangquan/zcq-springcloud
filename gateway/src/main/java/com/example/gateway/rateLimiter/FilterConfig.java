@@ -33,7 +33,6 @@ public class FilterConfig implements GlobalFilter, Ordered {
 
 
 
-
     public static void main(String[] args) {
         System.out.println("hello");
     }
