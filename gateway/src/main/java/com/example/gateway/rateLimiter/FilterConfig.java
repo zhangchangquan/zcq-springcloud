@@ -42,6 +42,7 @@ public class FilterConfig implements GlobalFilter, Ordered {
         if(StringUtils.isEmpty(token)){
             return writeWith(response,"用户未登录");
         }
+        System.out.println();
         Claims claims = Jwts.parser().setSigningKey("jwttest").parseClaimsJws(token).getBody();
         if(claims == null){
             return writeWith(response,"用户登录信息失效");
