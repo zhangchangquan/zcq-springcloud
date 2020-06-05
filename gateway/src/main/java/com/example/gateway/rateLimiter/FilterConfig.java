@@ -46,7 +46,6 @@ public class FilterConfig implements GlobalFilter, Ordered {
         if(claims == null){
             return writeWith(response,"用户登录信息失效");
         }
-        System.out.println();
         return chain.filter(exchange);
     }
 
@@ -62,6 +61,6 @@ public class FilterConfig implements GlobalFilter, Ordered {
 
     @Override
     public int getOrder() {
-        return 2;
+        return 0;
     }
 }
